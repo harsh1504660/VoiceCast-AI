@@ -1,0 +1,133 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Sora:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 35 20% 97%;
+    --foreground: 25 20% 15%;
+
+    --card: 35 20% 97%;
+    --card-foreground: 25 20% 15%;
+
+    --popover: 35 20% 97%;
+    --popover-foreground: 25 20% 15%;
+
+    --primary: 25 45% 35%;
+    --primary-foreground: 35 20% 95%;
+
+    --secondary: 30 25% 88%;
+    --secondary-foreground: 25 20% 15%;
+
+    --muted: 30 25% 90%;
+    --muted-foreground: 25 15% 45%;
+
+    --accent: 20 60% 70%;
+    --accent-foreground: 25 20% 15%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 30 25% 85%;
+    --input: 30 25% 85%;
+    --ring: 25 45% 35%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 35 20% 97%;
+    --sidebar-foreground: 25 20% 15%;
+    --sidebar-primary: 25 45% 35%;
+    --sidebar-primary-foreground: 35 20% 95%;
+    --sidebar-accent: 30 25% 88%;
+    --sidebar-accent-foreground: 25 20% 15%;
+    --sidebar-border: 30 25% 85%;
+    --sidebar-ring: 25 45% 35%;
+  }
+
+  .dark {
+    --background: 25 20% 8%;
+    --foreground: 35 20% 92%;
+
+    --card: 25 20% 8%;
+    --card-foreground: 35 20% 92%;
+
+    --popover: 25 20% 8%;
+    --popover-foreground: 35 20% 92%;
+
+    --primary: 35 20% 92%;
+    --primary-foreground: 25 20% 8%;
+
+    --secondary: 25 15% 15%;
+    --secondary-foreground: 35 20% 92%;
+
+    --muted: 25 15% 12%;
+    --muted-foreground: 35 15% 60%;
+
+    --accent: 20 60% 65%;
+    --accent-foreground: 35 20% 92%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 25 15% 15%;
+    --input: 25 15% 15%;
+    --ring: 35 20% 92%;
+
+    --sidebar-background: 25 20% 8%;
+    --sidebar-foreground: 35 20% 92%;
+    --sidebar-primary: 35 20% 92%;
+    --sidebar-primary-foreground: 25 20% 8%;
+    --sidebar-accent: 25 15% 15%;
+    --sidebar-accent-foreground: 35 20% 92%;
+    --sidebar-border: 25 15% 15%;
+    --sidebar-ring: 35 20% 92%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-inter;
+  }
+
+  .font-inter {
+    font-family: 'Inter', sans-serif;
+  }
+
+  .font-poppins {
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .font-sora {
+    font-family: 'Sora', sans-serif;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary) / 0.8);
+}
