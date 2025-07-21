@@ -1,0 +1,12 @@
+soundfile
+elevenlabs
+sqlalchemy
+fastapi
+uvicorn 
+pydantic
+dotenv
+uuid
+tempfile
+langchain_huggingface
+langchain_core
+langchain
