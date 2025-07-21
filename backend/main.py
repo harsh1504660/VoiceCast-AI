@@ -178,19 +178,19 @@ async def get_script(req: Topicrequest):
         if not avatar_info:
             continue  # Skip unknown characters
 
-        # video_inputs.append({
-        #     "character": {
-        #         "type": "avatar",
-        #         "avatar_id": avatar_info["avatar_id"],
-        #         "avatar_style": "normal"
-        #     },
-        #     "voice": {
-        #         "type": "text",
-        #         "input_text": text,
-        #         "voice_id": avatar_info["voice_id"]
-        #     },
+        video_inputs.append({
+            "character": {
+                "type": "avatar",
+                "avatar_id": avatar_info["avatar_id"],
+                "avatar_style": "normal"
+            },
+            "voice": {
+                "type": "text",
+                "input_text": text,
+                "voice_id": avatar_info["voice_id"]
+            },
 
-        # })
+        })
         #print(video_inputs)
 
     # Send this to Heygen
@@ -199,31 +199,29 @@ async def get_script(req: Topicrequest):
         "Content-Type": "application/json",
         "X-Api-Key": "demo"
     }
-    video_inputs=[{
-      "character": {
-        "type": "avatar",
-        "avatar_id": "Carlotta_BizTalk_Side_public"
-      },
-      "voice": {
-        "type": "text",
-        "input_text": "Hey, welcome to our AI podcast!",
-        "voice_id": "4754e1ec667544b0bd18cdf4bec7d6a7"
-      }
-    },
-    {
-      "character": {
-        "type": "avatar",
-        "avatar_id": "Emanuel_sitting_Sofa_side"
-      },
-      "voice": {
-        "type": "text",
-        "input_text": "Thanks! Today's topic is fascinating.",
-        "voice_id": "8a9fd0a131c94da08b761389e1e07cee"
-      }
-    },
-    
-
-    ]
+    # video_inputs=[{
+    #   "character": {
+    #     "type": "avatar",
+    #     "avatar_id": "Carlotta_BizTalk_Side_public"
+    #   },
+    #   "voice": {
+    #     "type": "text",
+    #     "input_text": "Hey, welcome to our AI podcast!",
+    #     "voice_id": "4754e1ec667544b0bd18cdf4bec7d6a7"
+    #   }
+    # },
+    # {
+    #   "character": {
+    #     "type": "avatar",
+    #     "avatar_id": "Emanuel_sitting_Sofa_side"
+    #   },
+    #   "voice": {
+    #     "type": "text",
+    #     "input_text": "Thanks! Today's topic is fascinating.",
+    #     "voice_id": "8a9fd0a131c94da08b761389e1e07cee"
+    #   }
+    # },
+    # ]
     
     payload = {
         "test": True,
@@ -277,36 +275,40 @@ async def get_script(req: Topicrequest):
     #video_url = "https://files.catbox.moe/iyqdg0.mp4"
     
 
+
+    print("ecerything fine till now ==========================")
     try:
         parsed_content = json.loads(response.content)
     except json.JSONDecodeError as e:
         print("❌ Failed to parse LLM response as JSON:", e)
         return []
 
+    print("======================parsed the contnen")
     character_map = {
     "Host": "1324",
     "Guest": "4567"
     }
-    # updated_dialogue = [
-    #     {
-    #         "character": character_map.get(line["character"], line["character"]),
-    #         "text": line["text"]
-    #     }
-    #     for line in parsed_content
-    # ]
+    updated_dialogue = [
+        {
+            "character": character_map.get(line["character"], line["character"]),
+            "text": line["text"]
+        }
+        for line in parsed_content
+    ]
     
     summery_promptt = summery_prompt()
 
+    print("===============formatting script")
     script = format_dialogue_lines(parsed_content)
     print(str(script))
 
     prompt_str = summery_promptt.format(script=script)
     model = LLM_setup()
     response = model.invoke(prompt_str)
+    print("response generated =========================")
 
 
-
-    img_url = fetch_unsplash_image(topic)
+    #img_url = fetch_unsplash_image(topic)
     
     
     
