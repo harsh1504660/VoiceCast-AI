@@ -17,6 +17,7 @@ def upload_to_catbox(file_path):
         data = {'reqtype': 'fileupload'}
         response = requests.post(url, files=files, data=data)
     if response.ok:
+        print(response.text.strip())
         return response.text.strip()
     else:
         print("❌ Upload failed:", response.status_code, response.text)

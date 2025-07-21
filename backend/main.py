@@ -287,13 +287,13 @@ async def get_script(req: Topicrequest):
     "Host": "1324",
     "Guest": "4567"
     }
-    updated_dialogue = [
-        {
-            "character": character_map.get(line["character"], line["character"]),
-            "text": line["text"]
-        }
-        for line in parsed_content
-    ]
+    # updated_dialogue = [
+    #     {
+    #         "character": character_map.get(line["character"], line["character"]),
+    #         "text": line["text"]
+    #     }
+    #     for line in parsed_content
+    # ]
     
     summery_promptt = summery_prompt()
 
