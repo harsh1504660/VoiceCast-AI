@@ -14,10 +14,10 @@ from audio_gen import genrate_audio
 from upload import upload_to_catbox,download_file
 from images import fetch_unsplash_image
 load_dotenv()
-HEYGEN_API_KEY = os.getenv("HEYGEN_API_KEY", "your_api_key_here")
+
 
 origins = [
-    "http://localhost:8080",  # your Vite/React/Next.js frontend
+    "https://voicecast-ai.netlify.app/",  # your Vite/React/Next.js frontend
     "http://127.0.0.1:5173",
     # Add deployed frontend domains here when needed
 ]
@@ -25,7 +25,7 @@ origins = [
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,            # allow only listed origins
-    allow_credentials=True,
+    allow_credentials=False,
     allow_methods=["*"],              # allow all HTTP methods
     allow_headers=["*"],              # allow all headers
 )
