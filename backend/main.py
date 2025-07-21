@@ -178,19 +178,19 @@ async def get_script(req: Topicrequest):
         if not avatar_info:
             continue  # Skip unknown characters
 
-        video_inputs.append({
-            "character": {
-                "type": "avatar",
-                "avatar_id": avatar_info["avatar_id"],
-                "avatar_style": "normal"
-            },
-            "voice": {
-                "type": "text",
-                "input_text": text,
-                "voice_id": avatar_info["voice_id"]
-            },
+        # video_inputs.append({
+        #     "character": {
+        #         "type": "avatar",
+        #         "avatar_id": avatar_info["avatar_id"],
+        #         "avatar_style": "normal"
+        #     },
+        #     "voice": {
+        #         "type": "text",
+        #         "input_text": text,
+        #         "voice_id": avatar_info["voice_id"]
+        #     },
 
-        })
+        # })
         #print(video_inputs)
 
     # Send this to Heygen
@@ -199,53 +199,31 @@ async def get_script(req: Topicrequest):
         "Content-Type": "application/json",
         "X-Api-Key": "demo"
     }
-    # video_inputs=[{
-    #   "character": {
-    #     "type": "avatar",
-    #     "avatar_id": "Carlotta_BizTalk_Side_public"
-    #   },
-    #   "voice": {
-    #     "type": "text",
-    #     "input_text": "Hey, welcome to our AI podcast!",
-    #     "voice_id": "4754e1ec667544b0bd18cdf4bec7d6a7"
-    #   }
-    # },
-    # {
-    #   "character": {
-    #     "type": "avatar",
-    #     "avatar_id": "Emanuel_sitting_Sofa_side"
-    #   },
-    #   "voice": {
-    #     "type": "text",
-    #     "input_text": "Thanks! Today's topic is fascinating.",
-    #     "voice_id": "8a9fd0a131c94da08b761389e1e07cee"
-    #   }
-    # },
-    # {
-    #   "character": {
-    #     "type": "avatar",
-    #     "avatar_id": "Carlotta_BizTalk_Side_public"
-    #   },
-    #   "voice": {
-    #     "type": "text",
-    #     "input_text": "Testing the voice",
-    #     "voice_id": "4754e1ec667544b0bd18cdf4bec7d6a7"
-    #   }
-    # },
-    # {
-    #   "character": {
-    #     "type": "avatar",
-    #     "avatar_id": "Emanuel_sitting_Sofa_side"
-    #   },
-    #   "voice": {
-    #     "type": "text",
-    #     "input_text": "Testing completed thanks",
-    #     "voice_id": "8a9fd0a131c94da08b761389e1e07cee"
-    #   }
-    # },
+    video_inputs=[{
+      "character": {
+        "type": "avatar",
+        "avatar_id": "Carlotta_BizTalk_Side_public"
+      },
+      "voice": {
+        "type": "text",
+        "input_text": "Hey, welcome to our AI podcast!",
+        "voice_id": "4754e1ec667544b0bd18cdf4bec7d6a7"
+      }
+    },
+    {
+      "character": {
+        "type": "avatar",
+        "avatar_id": "Emanuel_sitting_Sofa_side"
+      },
+      "voice": {
+        "type": "text",
+        "input_text": "Thanks! Today's topic is fascinating.",
+        "voice_id": "8a9fd0a131c94da08b761389e1e07cee"
+      }
+    },
     
 
-    # ]
+    ]
     
     payload = {
         "test": True,
@@ -432,7 +410,7 @@ def audio_podcast(req: AudioPodcastRequest):
     response = chain.invoke({"topic": topic,"description":description,"first_name":first_host,"second_name":second_host})
 
     # This is probably a JSON string
-
+    print("response : ",  response.content)
     # Parse string to list of dicts
     try:
         parsed_content = json.loads(response.content)
