@@ -56,7 +56,7 @@ useEffect(() => {
     try {
       console.log("inside the effect");
 
-      const res = await axios.post('http://localhost:8000/fetch_data', {
+      const res = await axios.post('https://voicecast-ai.onrender.com/fetch_data', {
         url: audioUrl,
           });
     
