@@ -459,7 +459,7 @@ def audio_podcast(req: AudioPodcastRequest):
     print("✅ After cleaning ============================")
 
     api_keys = [
-        os.getenv('el_api8'),
+        os.getenv('el_api7'),
     ]
     newurl=''
     for idx, key in enumerate(api_keys):
