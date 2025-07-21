@@ -18,10 +18,7 @@ load_dotenv()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:8080",
-        "https://voicecast-ai.netlify.app"
-    ],
+    allow_origin_regex=r"https://.*netlify\.app",
     allow_methods=["*"],
     allow_headers=["*"],
     allow_credentials=False,  # Only True if you're using cookies/auth headers
@@ -478,21 +475,21 @@ def audio_podcast(req: AudioPodcastRequest):
         os.getenv('el_api8'),
     ]
     newurl=''
-    for idx, key in enumerate(api_keys):
-        try:
-            print(f"Trying API key {idx + 1}/{len(api_keys)}...")
-            client = ElevenLabs(api_key=key)
-            url = genrate_audio(updated_dialogue, client)
-            newurl = url
-            break  # Exit loop on success
-        except Exception as e:
-            print(f"API key {idx + 1} failed: {e}")
+    # for idx, key in enumerate(api_keys):
+    #     try:
+    #         print(f"Trying API key {idx + 1}/{len(api_keys)}...")
+    #         client = ElevenLabs(api_key=key)
+    #         url = genrate_audio(updated_dialogue, client)
+    #         newurl = url
+    #         break  # Exit loop on success
+    #     except Exception as e:
+    #         print(f"API key {idx + 1} failed: {e}")
 
 
 
     # filepath = download_file(url)
     # audio_url = upload_to_catbox(filepath)
-    #url = 'https://files.catbox.moe/krsqsa.mp3'
+    newurl = 'https://files.catbox.moe/krsqsa.mp3'
     store_video_link(video_url=newurl,username=username,hosts=hosts,hasvid=hasvid,title=str(topic),topicCat=topicCat,summary=response.content,transcript=str(script),img_url=img_url)
     return {"audio_url":newurl}
 
@@ -510,6 +507,7 @@ def fetch_data(req: FecthInput):
     
     if result:
         # Convert SQLAlchemy Row object to dictionary
+        print(result._mapping)
         return [{"response" :result._mapping}]  # ._mapping safely exposes the column names
     else:
         return {"error": "No data found for this URL"}
@@ -517,5 +515,5 @@ def fetch_data(req: FecthInput):
 
    
 
-if __name__ == "__main__":
-    uvicorn.run(app ,host="0.0.0.0", port=10000)
+# if __name__ == "__main__":
+#     uvicorn.run(app ,host="0.0.0.0", port=10000)
