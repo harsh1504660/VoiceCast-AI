@@ -113,7 +113,7 @@ async def get_script(req: Topicrequest):
     topicCat = req.topicCat
     description = req.description
 
-    first_host, second_host = hosts.split('-')
+    first_host, second_host = [n.strip() for n in hosts.split('&')]
     print("description : ",description)
     print("hosts are : ",hosts)
     # Step 1: Generate script from LLM
@@ -385,7 +385,7 @@ def audio_podcast(req: AudioPodcastRequest):
     topicCat = req.topicCat
     hasvid = req.hasvid
     description = req.description
-    first_host, second_host = hosts.split('-')
+    first_host, second_host = [n.strip() for n in hosts.split('&')]
     character_map = {
     "Host": "1324",
     "Guest": "4567"
@@ -504,5 +504,5 @@ def fetch_data(req: FecthInput):
 
    
 
-if __name__ == "__main__":
-    uvicorn.run(app ,host="0.0.0.0", port=10000)
+# if __name__ == "__main__":
+#     uvicorn.run(app ,host="0.0.0.0", port=10000)

@@ -13,8 +13,8 @@ const Library = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedTopic, setSelectedTopic] = useState('all');
   const [selectedDate, setSelectedDate] = useState('all');
-
-  const topics = ['all', 'technology', 'health', 'business', 'science', 'education', 'entertainment','other'];
+  const [episode, setEpisode] = useState<any | null>(null);
+  const topics = ['all', 'technology', 'sports', 'science', 'education', 'entertainment','history','other'];
   const dateFilters = ['all', 'today', 'this-week', 'this-month'];
   
 const [episodes, setEpisodes] = useState([]);
@@ -36,7 +36,7 @@ const enriched = data.map((vid) => ({
   date: new Date().toISOString().split('T')[0],
   topic: vid.topic,
   thumbnail: vid.img_url,
-  description: "This is an AI-generated video."
+  description: "This is an AI-generated Podcast."
 }));
 
       setEpisodes(enriched);
@@ -79,7 +79,15 @@ const enriched = data.map((vid) => ({
       }
     }
   };
-
+if (episodes.length === 0) {
+  return (
+    <div className="flex flex-col items-center justify-center h-screen space-y-4">
+      <div className="w-16 h-16 border-4 border-orange-500 border-t-transparent rounded-full animate-spin" />
+      <p className="text-lg font-medium text-orange-600">Loading Podcasts...</p>
+      <p className="text-sm text-orange-400">Bringing all the podcasts under one roof...</p>
+    </div>
+  );
+}
   return (
     <div className="min-h-screen pt-16 bg-gradient-to-br from-warm-50 to-coral-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -91,7 +99,7 @@ const enriched = data.map((vid) => ({
           className="text-center mb-12"
         >
           <h1 className="text-4xl md:text-5xl font-bold font-sora text-charcoal-900 mb-4">
-            Podcast Library
+            Explore Podcasts 
           </h1>
           <p className="text-xl text-charcoal-600 max-w-2xl mx-auto">
             Discover amazing AI-generated podcasts from our creative community

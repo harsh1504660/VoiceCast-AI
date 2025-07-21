@@ -10,6 +10,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar } from '@radix-ui/react-avatar';
+import { toast } from '@/hooks/use-toast';
 import { GeneratingSection } from '@/components/GeneratingSection';
 const CreateEpisode = () => {
 const [formData, setFormData] = useState({
@@ -28,17 +29,17 @@ const [formData, setFormData] = useState({
   const [isPlaying, setIsPlaying] = useState(false);
   const [videoUrl, setVideoUrl] = useState('');
   const audioAvatarPairs  = [
-    { id: 'vidhi-lily', name: 'Vidhi-Lily', description: 'Tech enthusiasts with complementary perspectives' },
-    { id: 'emads-marisaa', name: 'Emads Marisaa', description: 'Creative storytellers with engaging dynamics' },
-    { id: 'clara-mark', name: 'Clara & Mark', description: 'Business experts with analytical insights' },
-    { id: 'adam-erik', name: 'Adam & Erik', description: 'Health and wellness advocates' }
+    { id: 'Vidhi & Lily', name: 'Vidhi & Lily', description: 'Tech enthusiasts with complementary perspectives' },
+    { id: 'Emads & Marisaa', name: 'Emads & Marisaa', description: 'Creative storytellers with engaging dynamics' },
+    { id: 'Clara & Mark', name: 'Clara & Mark', description: 'Business experts with analytical insights' },
+    { id: 'Adam & Erik', name: 'Adam & Erik', description: 'Health and wellness advocates' }
   ];
   const videoAvatarPairs = [
-  { id: 'amelia-emanual', name: 'Amelia & Emanual', description: 'Expressive AI video hosts' },
-  { id: 'brandon-gala', name: 'Brandon & Gala', description: 'Dynamic duo for engaging video episodes' },
-  { id: 'leos-ida', name: 'Leos & Ida', description: 'Conversational and visually expressive' },
-  { id: 'leszek-noah', name: 'Leszek & Noah', description: 'Professional and charismatic AI video hosts' },
-  { id: 'masha-martina', name: 'Masha & Martina', description: 'Energetic and friendly presence on screen' }
+  { id: 'Amelia & Emanual', name: 'Amelia & Emanual', description: 'Expressive AI video hosts' },
+  { id: 'Brandon & Gala', name: 'Brandon & Gala', description: 'Dynamic duo for engaging video episodes' },
+  { id: 'Leos & Ida', name: 'Leos & Ida', description: 'Conversational and visually expressive' },
+  { id: 'Leszek & Noah', name: 'Leszek & Noah', description: 'Professional and charismatic AI video hosts' },
+  { id: 'Masha & Martina', name: 'Masha & Martina', description: 'Energetic and friendly presence on screen' }
 ];
   const durations = [
     { value: '5', label: '5 minutes' },
@@ -96,11 +97,19 @@ const handleSubmit = async (e: React.FormEvent) => {
       const encodedUrl = encodeURIComponent(data.audio_url);
       navigate(`/episode/${encodedUrl}`);
     } else {
-      alert(`${isVideo ? 'Video' : 'Audio'} URL not received.`);
+      toast({
+      title: "Something went wrong",
+      description: "Looks like all the hosts are busy, Please try after sometime.",
+      variant: "destructive",
+    });
     }
   } catch (error) {
     console.error('❌ Error:', error);
-    alert('Something went wrong while generating the episode.');
+      toast({
+      title: "Oops!! Something went wrong",
+      description: "Till then you can checkout other Podcasts",
+      variant: "destructive",
+    });
   }
 
   setIsGenerating(false);

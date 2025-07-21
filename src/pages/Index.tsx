@@ -1,37 +1,47 @@
 
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Play, Users, Sparkles, ArrowRight, Clock, Calendar } from 'lucide-react';
+import { Play, Users, Sparkles,Video,Mic, ArrowRight, Clock,BadgeCheck, Calendar } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 
 const Index = () => {
   const featuredEpisodes = [
     {
       id: 1,
-      title: "AI in Healthcare: Revolutionary Changes",
-      hosts: "Alex & Jamie",
-      duration: "24 min",
-      date: "2024-01-15",
-      thumbnail: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=400&h=300&fit=crop",
-      description: "Exploring how AI is transforming medical diagnostics and patient care."
+      title: "The rise of Cricket in India",
+      topic:"Entertainment",
+      hosts: "Leos & Ida",
+      duration:"video",
+      video_url:"https://files.catbox.moe/htfvws.mp4",
+      publisher:"Sarthak Patil",
+      date: "2025-07-18",
+      thumbnail: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Pollock_to_Hussey.jpg/1200px-Pollock_to_Hussey.jpg",
+      description: "Exploring the rise of cricket in india along with it's impacts"
     },
     {
       id: 2,
-      title: "The Future of Sustainable Energy",
-      hosts: "Morgan & Casey",
-      duration: "31 min",
-      date: "2024-01-12",
-      thumbnail: "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?w=400&h=300&fit=crop",
-      description: "Discussing renewable energy innovations and their global impact."
+      title: "The Invasion of Normandy: Inside D-Day",
+      topic:"Education",
+      video_url:"https://files.catbox.moe/7h6s6h.wav",
+      publisher:"Atharva Mali",
+      hosts: "Adam-Erik",
+      duration:"audio only",
+      date: "2024-07-22",
+      thumbnail: "https://warfarehistorynetwork.com/wp-content/uploads/2020/02/W-Jun19-Les-Moulins-1-1-e1658258306161.jpg",
+      description: "Discussing the invastion of normandy with thrilling incidents"
     },
     {
       id: 3,
-      title: "Space Exploration: Mars Mission Updates",
-      hosts: "Alex & Jamie",
-      duration: "28 min",
-      date: "2024-01-10",
-      thumbnail: "https://images.unsplash.com/photo-1482881497185-d4a9ddbe4151?w=400&h=300&fit=crop",
-      description: "Latest developments in Mars exploration and colonization plans."
+      title: "Mysteries of Black Hole",
+      duration:"video",
+      publisher:"Harsh Joshi",
+      topic:"Science",
+      video_url:"https://files.catbox.moe/iyqdg0.mp4",
+      hosts: "Amelia & Emanual",
+      date: "2024-07-23",
+      thumbnail: "https://upload.wikimedia.org/wikipedia/commons/9/9c/Black_hole_representation.gif",
+      description: "Exploring the secrets of black holes through captivating facts and thrilling discoveries."
     }
   ];
 
@@ -208,56 +218,82 @@ const Index = () => {
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {featuredEpisodes.map((episode, index) => (
-              <motion.div
-                key={episode.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
-                viewport={{ once: true }}
-                whileHover={{ y: -5 }}
-                className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 group"
-              >
-                <Link to={`/episode/${episode.id}`}>
-                  <div className="relative overflow-hidden">
-                    <img
-                      src={episode.thumbnail}
-                      alt={episode.title}
-                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-                    <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full p-2">
-                      <Play className="w-4 h-4 text-coral-600" />
+             {featuredEpisodes.map((episode) => (
+          
+            <motion.div
+              key={episode.id}
+              variants={itemVariants}
+              whileHover={{ y: -5 }}
+              className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 group"
+            >
+             <Link to={episode.duration === "video"
+  ? `/episodev/${encodeURIComponent(episode.video_url)}`
+  : `/episode/${encodeURIComponent(episode.video_url)}`
+}>
+             
+                <div className="relative overflow-hidden">
+                  <img
+                    src={episode.thumbnail}
+                    alt={episode.title}
+                    className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full p-2">
+                    <Play className="w-4 h-4 text-coral-600" />
+                  </div>
+                  <div className="absolute bottom-4 left-4">
+                    <Badge
+                    variant="secondary"
+                      
+                      className="bg-white/90 text-charcoal-700 backdrop-blur-sm capitalize"
+                    >
+                      {episode.topic}
+                    </Badge>
+                  </div>
+                </div>
+                
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold font-sora text-charcoal-900 mb-2 group-hover:text-coral-600 transition-colors line-clamp-2">
+                    {episode.title}
+                  </h3>
+                  <p className="text-charcoal-600 mb-4 line-clamp-2">
+                    {episode.description}
+                  </p>
+                  
+                  <div className="flex items-center justify-between text-sm text-charcoal-500">
+                    <div className="flex items-center space-x-1">
+                      <Users className="w-4 h-4" />
+                      <span>{episode.hosts}</span>
+                    </div>
+                                        <div className="flex items-center space-x-1">
+                      <BadgeCheck className="w-4 h-4" />
+                      <span>op: {episode.publisher}</span>
                     </div>
                   </div>
                   
-                  <div className="p-6">
-                    <h3 className="text-xl font-semibold font-sora text-charcoal-900 mb-2 group-hover:text-coral-600 transition-colors">
-                      {episode.title}
-                    </h3>
-                    <p className="text-charcoal-600 mb-4 line-clamp-2">
-                      {episode.description}
-                    </p>
+                  
+
+                  <div className="flex items-center justify-between text-sm text-charcoal-500 mt-2">
+                    <div className="flex items-center space-x-1">
+                      
+  {episode.duration =='video' ? (
+  <Video className="w-4 h-4" />
+) : (
+  <Mic className="w-4 h-4" />
+)}
+                      <span>{episode.duration}</span>
+                    </div>
                     
-                    <div className="flex items-center justify-between text-sm text-charcoal-500">
-                      <div className="flex items-center space-x-1">
-                        <Users className="w-4 h-4" />
-                        <span>{episode.hosts}</span>
-                      </div>
-                      <div className="flex items-center space-x-4">
-                        <div className="flex items-center space-x-1">
-                          <Clock className="w-4 h-4" />
-                          <span>{episode.duration}</span>
-                        </div>
-                        <div className="flex items-center space-x-1">
-                          <Calendar className="w-4 h-4" />
-                          <span>{new Date(episode.date).toLocaleDateString()}</span>
-                        </div>
-                      </div>
+                    <div className="flex items-center space-x-1">
+                      <Calendar className="w-4 h-4" />
+                      <span>{new Date(episode.date).toLocaleDateString()}</span>
                     </div>
                   </div>
-                </Link>
-              </motion.div>
+
+                  
+                </div>
+              </Link>
+            </motion.div>
             ))}
           </div>
 
