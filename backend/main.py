@@ -16,18 +16,15 @@ from images import fetch_unsplash_image
 load_dotenv()
 
 
-origins = [
-    "https://voicecast-ai.netlify.app/",  # your Vite/React/Next.js frontend
-    "http://127.0.0.1:5173",
-    # Add deployed frontend domains here when needed
-]
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,            # allow only listed origins
-    allow_credentials=False,
-    allow_methods=["*"],              # allow all HTTP methods
-    allow_headers=["*"],              # allow all headers
+    allow_origins=[
+        "http://localhost:8080",
+        "https://voicecast-ai.netlify.app/"
+    ],
+    allow_methods=["*"],
+    allow_headers=["*"],
+    allow_credentials=False,  # Only True if you're using cookies/auth headers
 )
 
 
