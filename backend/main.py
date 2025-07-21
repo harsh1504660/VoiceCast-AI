@@ -419,14 +419,28 @@ def audio_podcast(req: AudioPodcastRequest):
     except json.JSONDecodeError as e:
         print("❌ Failed to parse LLM response as JSON:", e)
         return []
+    if isinstance(parsed_content, list):
+        if all(isinstance(line, list) for line in parsed_content):
+            parsed_content = [item for group in parsed_content for item in group]
+    else:
+        print("❌ Unexpected response format.")
+        return []
+    
 
-    updated_dialogue = [
-        {
+
+    updated_dialogue = []
+    for line in parsed_content:
+        if not isinstance(line, dict):
+            print("⚠️ Skipping invalid line (not a dict):", line)
+            continue
+        if "character" not in line or "text" not in line:
+            print("⚠️ Skipping incomplete line:", line)
+            continue
+
+        updated_dialogue.append({
             "character": character_map.get(line["character"], line["character"]),
             "text": line["text"]
-        }
-        for line in parsed_content
-    ]
+        })
 
 
     summery_promptt = summery_prompt()
@@ -466,7 +480,7 @@ def audio_podcast(req: AudioPodcastRequest):
             print(f"API key {idx + 1} failed: {e}")
 
 
-
+    print("url==================",newurl)
     # filepath = download_file(url)
     # audio_url = upload_to_catbox(filepath)
     #newurl = 'https://files.catbox.moe/krsqsa.mp3'

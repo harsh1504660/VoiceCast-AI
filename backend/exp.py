@@ -3,77 +3,67 @@ from fastapi import FastAPI, HTTPException
 import uvicorn
 from utils import LLM_setup, script_prompt,script_audio_podcast,summery_prompt,format_dialogue_lines
 import json
-def test(topic,description,first_host,second_host):
-    prompt = script_prompt()
-    llm = LLM_setup()
-    chain = prompt | llm
-    response = chain.invoke({"topic": topic,"description":description,"first_name":first_host,"second_name":second_host})
-    try:
-        script_data = json.loads(response.content)
-        if not isinstance(script_data, list):
-            raise ValueError(f"Expected a list, got {type(script_data)}")
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to parse LLM response: {str(e)}")
-    
-    character_voice_map = {
-        "Host": {"avatar_id": "Amelia_sitting_business_training_side", "voice_id": "4754e1ec667544b0bd18cdf4bec7d6a7"},
-        "Guest": {"avatar_id": "Emanuel_sitting_Sofa_side", "voice_id": "8a9fd0a131c94da08b761389e1e07cee"}
-    }
-    video_inputs = []
-    for entry in script_data:
-        char = entry.get("character")
-        text = entry.get("text")
-        if not char or not text:
-            continue
-        
-        avatar_info = character_voice_map.get(char)
-        if not avatar_info:
-            continue  # Skip unknown characters
+import re
+def test(topic, description, first_host, second_host):
+    model = LLM_setup()
+    prompt = script_audio_podcast()
+    chain = prompt | model
 
-        video_inputs.append({
-            "character": {
-                "type": "avatar",
-                "avatar_id": avatar_info["avatar_id"],
-                "avatar_style": "normal"
-            },
-            "voice": {
-                "type": "text",
-                "input_text": text,
-                "voice_id": avatar_info["voice_id"]
-            },
+    response = chain.invoke({
+        "topic": topic,
+        "description": description,
+        "first_name": first_host,
+        "second_name": second_host
+    })
 
-        })
+    print("response : ", response.content)
 
-    print("ecerything fine till now ==========================")
+    # Step 1: Parse JSON safely
     try:
         parsed_content = json.loads(response.content)
     except json.JSONDecodeError as e:
         print("❌ Failed to parse LLM response as JSON:", e)
         return []
 
-    print("======================parsed the contnen")
+    # Step 2: Flatten nested lists if needed
+    if isinstance(parsed_content, list):
+        if all(isinstance(line, list) for line in parsed_content):
+            parsed_content = [item for group in parsed_content for item in group]
+    else:
+        print("❌ Unexpected response format.")
+        return []
+
+    print("parsed_content ✅:", parsed_content)
+
+    # Step 3: Replace character names if needed
     character_map = {
-    "Host": "1324",
-    "Guest": "4567"
+        "Host": "1324",
+        "Guest": "4567"
     }
-    updated_dialogue = [
-        {
+
+    updated_dialogue = []
+    for line in parsed_content:
+        if not isinstance(line, dict):
+            print("⚠️ Skipping invalid line (not a dict):", line)
+            continue
+        if "character" not in line or "text" not in line:
+            print("⚠️ Skipping incomplete line:", line)
+            continue
+
+        updated_dialogue.append({
             "character": character_map.get(line["character"], line["character"]),
             "text": line["text"]
-        }
-        for line in parsed_content
-    ]
-    
-    summery_promptt = summery_prompt()
+        })
 
-    print("===============formatting script")
+    # Step 4: Format script for summary
     script = format_dialogue_lines(parsed_content)
-    print(str(script))
+    print("script ===========", str(script))
 
+    summery_promptt = summery_prompt()
     prompt_str = summery_promptt.format(script=script)
-    model = LLM_setup()
     response = model.invoke(prompt_str)
-    print("response generated =========================")
 
+    print("final response:", response.content)
 
+    return updated_dialogue  # or return response.content if you want summary
 test('cricket','story','harsh','bulla')
