@@ -301,7 +301,7 @@ if (!episode) {
 <ScrollArea className="h-96">
   <div className="space-y-4">
     {episode && episode.transcript ? (
-      episode.transcript.split('\n').map((line, index) => (
+      episode.transcript.split('\\n').map((line, index) => (
         <div key={index} className="flex space-x-4">
           <div className="flex-shrink-0 w-16 text-sm text-coral-600 font-medium">
             {/* Optional: show line number or leave blank */}

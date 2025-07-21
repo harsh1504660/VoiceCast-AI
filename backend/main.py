@@ -15,11 +15,10 @@ from upload import upload_to_catbox,download_file
 from images import fetch_unsplash_image
 load_dotenv()
 
-
+#allow_origin_regex=r"https://.*netlify\.app",
 app.add_middleware(
     CORSMiddleware,
-    alow_origin=["http://localhost:8080",'https://voicecast-ai.netlify.app'],
-    allow_origin_regex=r"https://.*netlify\.app",
+    alow_origin=["http://localhost:8080"],
     allow_methods=["*"],
     allow_headers=["*"],
     allow_credentials=False,  # Only True if you're using cookies/auth headers
