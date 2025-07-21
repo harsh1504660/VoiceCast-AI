@@ -342,7 +342,9 @@ class EpisodeResponse(EpisodeCreate):
 
 
 
-
+@app.get("/health")
+def health_check():
+    return {"staus:":"health check success!"}
 
 
 
@@ -502,5 +504,5 @@ def fetch_data(req: FecthInput):
 
    
 
-# if __name__ == "__main__":
-#     uvicorn.run(app ,host="0.0.0.0", port=10000)
+if __name__ == "__main__":
+    uvicorn.run(app ,host="0.0.0.0", port=10000)
