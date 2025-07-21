@@ -18,6 +18,7 @@ load_dotenv()
 
 app.add_middleware(
     CORSMiddleware,
+    alow_origin=["http://localhost:8080",'https://voicecast-ai.netlify.app'],
     allow_origin_regex=r"https://.*netlify\.app",
     allow_methods=["*"],
     allow_headers=["*"],
