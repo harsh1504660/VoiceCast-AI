@@ -28,12 +28,12 @@ def fetch_unsplash_image(query):
         return None
 
     # First attempt
-    result = make_request(os.getenv('unsplash_api1'), os.getenv('unsplash_cce1'))
-    
+    result = make_request(os.environ.get('unsplash_api1'), os.environ.get('unsplash_cce1'))
+    print("unsplash api : ", os.environ.get('unsplash_api1'))
     # Fallback to second key if first fails
     if not result:
         print("🔁 Trying fallback API key...")
-        result = make_request(os.getenv('unsplash_api2'), os.getenv('unsplash_cce2'))
+        result = make_request(os.environ.get('unsplash_api2'), os.environ.get('unsplash_cce2'))
 
     return result
 
