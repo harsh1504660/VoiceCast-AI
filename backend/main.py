@@ -18,7 +18,7 @@ load_dotenv()
 #allow_origin_regex=r"https://.*netlify\.app",
 app.add_middleware(
     CORSMiddleware,
-    alow_origins=["http://localhost:8080"],
+    allow_origins=["http://localhost:8080"],
     allow_methods=["*"],
     allow_headers=["*"],
     allow_credentials=False,  # Only True if you're using cookies/auth headers
