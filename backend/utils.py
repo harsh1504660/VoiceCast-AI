@@ -22,7 +22,7 @@ def script_prompt():
     template = PromptTemplate(
         template=(
         """
-        Generate a short 5-6 minute podcast script on the topic: {topic}.\n
+        Generate a short 5-6 minute podcast script on the topic: {topic}. The podcast should include a conversation between a host and a guest. Make it engaging and informative. Let the host also share a personal insight.\n
         use name of host as {first_name} and guest name as {second_name}.\n
         Podcast style should be : {description}\n
         Return output in strict JSON format like this (as a list of dicts):
@@ -43,7 +43,7 @@ def script_audio_podcast():
     # nickmalhotra/ProjectIndus
     template = PromptTemplate(
         template="""
-        Generate a short 5-6 minute podcast script on the topic: {topic}.\n
+       Generate a short 5-6 minute podcast script on the topic: {topic}. The podcast should include a conversation between a host and a guest. Make it engaging and informative. Let the host also share a personal insight.\n
         use name of host as {first_name} and guest name as {second_name}.\n
         Podcast style should be : {description}\n
         Return output in strict JSON format like this (as a list of dicts):

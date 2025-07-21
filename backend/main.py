@@ -55,7 +55,7 @@ class VideoScriptRequest(BaseModel):
     
 
 
-def poll_video_status(video_id,mainkey, interval=5, timeout=300):
+def poll_video_status(video_id,mainkey, interval=5, timeout=30000):
     status_url = f"https://api.heygen.com/v1/video_status.get?video_id={video_id}"
     start_time = time.time()
     headers = {
@@ -455,21 +455,21 @@ def audio_podcast(req: AudioPodcastRequest):
         os.getenv('el_api8'),
     ]
     newurl=''
-    # for idx, key in enumerate(api_keys):
-    #     try:
-    #         print(f"Trying API key {idx + 1}/{len(api_keys)}...")
-    #         client = ElevenLabs(api_key=key)
-    #         url = genrate_audio(updated_dialogue, client)
-    #         newurl = url
-    #         break  # Exit loop on success
-    #     except Exception as e:
-    #         print(f"API key {idx + 1} failed: {e}")
+    for idx, key in enumerate(api_keys):
+        try:
+            print(f"Trying API key {idx + 1}/{len(api_keys)}...")
+            client = ElevenLabs(api_key=key)
+            url = genrate_audio(updated_dialogue, client)
+            newurl = url
+            break  # Exit loop on success
+        except Exception as e:
+            print(f"API key {idx + 1} failed: {e}")
 
 
 
     # filepath = download_file(url)
     # audio_url = upload_to_catbox(filepath)
-    newurl = 'https://files.catbox.moe/krsqsa.mp3'
+    #newurl = 'https://files.catbox.moe/krsqsa.mp3'
     store_video_link(video_url=newurl,username=username,hosts=hosts,hasvid=hasvid,title=str(topic),topicCat=topicCat,summary=response.content,transcript=str(script),img_url=img_url)
     return {"audio_url":newurl}
 
