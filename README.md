@@ -2,6 +2,7 @@
 
 An AI-powered system that generates engaging **audio and video podcasts** based on user-provided topics. Features include automated **avatar-based video generation with lip sync**, **dynamic thumbnail generation**, and a **centralized global podcast feed**.
 
+🔗 **Live Demo / GitHub Repo**: [EduPath AI](https://voicecast-ai.netlify.app/)
 ---
 
 ## 🚀 Features
