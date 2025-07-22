@@ -469,9 +469,11 @@ def audio_podcast(req: AudioPodcastRequest):
             print(f"Trying API key {idx + 1}/{len(api_keys)}...")
             client = ElevenLabs(api_key=key)
             url = genrate_audio(updated_dialogue, client)
+
             newurl = url
             break  # Exit loop on success
         except Exception as e:
+            time.sleep(10)
             print(f"API key {idx + 1} failed: {e}")
 
 
