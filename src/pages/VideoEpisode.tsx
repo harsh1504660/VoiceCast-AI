@@ -54,7 +54,7 @@ const EpisodeDetail = () => {
       try {
         console.log("inside the effect");
 
-        const res = await axios.post('https://voicecast-ai.onrender.com/fetch_data', {
+        const res = await axios.post('https://voicecast-backend.onrender.com/fetch_data', {
           url: audioUrl,
         });
 

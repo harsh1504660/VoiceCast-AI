@@ -57,7 +57,7 @@ const handleSubmit = async (e: React.FormEvent) => {
 
   try {
     const isVideo = formData.outputType === 'video';
-    const endpoint = isVideo ? 'https://voicecast-ai.onrender.com/script' : 'https://voicecast-ai.onrender.com/audio_podcast';
+    const endpoint = isVideo ? 'https://voicecast-backend.onrender.com/script' : 'https://voicecast-backend.onrender.com/audio_podcast';
 
     const payload = isVideo
       ? {

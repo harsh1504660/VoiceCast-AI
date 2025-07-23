@@ -22,7 +22,7 @@ const [episodes, setEpisodes] = useState([]);
 useEffect(() => {
   const fetchVideos = async () => {
     try {
-      const res = await axios.get('https://voicecast-ai.onrender.com/videos'); // Adjust URL/port if different
+      const res = await axios.get('https://voicecast-backend.onrender.com/videos'); // Adjust URL/port if different
       const data = res.data;
       console.log(data)
       // If your backend only returns URL and ID, enrich with placeholders
