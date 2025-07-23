@@ -288,13 +288,19 @@ async def get_script(req: Topicrequest):
     "Host": "1324",
     "Guest": "4567"
     }
-    updated_dialogue = [
-        {
+    updated_dialogue = []
+    for line in parsed_content:
+        if not isinstance(line, dict):
+            print("⚠️ Skipping invalid line (not a dict):", line)
+            continue
+        if "character" not in line or "text" not in line:
+            print("⚠️ Skipping incomplete line:", line)
+            continue
+
+        updated_dialogue.append({
             "character": character_map.get(line["character"], line["character"]),
             "text": line["text"]
-        }
-        for line in parsed_content
-    ]
+        })
     
     summery_promptt = summery_prompt()
 
