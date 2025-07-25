@@ -38,7 +38,7 @@ export const GeneratingSection = () => {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.4, duration: 1 }}
       >
-        Sit back and relax while we generate your personalized episode with avatars, voice synthesis, and story crafting.
+       This may take a while. Sit back and relax while we generate your personalized episode with avatars, voice synthesis, and story crafting.
       </motion.p>
 
       {/* Loop through steps */}

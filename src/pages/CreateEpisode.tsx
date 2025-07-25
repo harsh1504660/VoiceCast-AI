@@ -29,17 +29,17 @@ const [formData, setFormData] = useState({
   const [isPlaying, setIsPlaying] = useState(false);
   const [videoUrl, setVideoUrl] = useState('');
   const audioAvatarPairs  = [
-    { id: 'Vidhi & Lily', name: 'Vidhi & Lily', description: 'Tech enthusiasts with complementary perspectives' },
-    { id: 'Emads & Marisaa', name: 'Emads & Marisaa', description: 'Creative storytellers with engaging dynamics' },
-    { id: 'Clara & Mark', name: 'Clara & Mark', description: 'Business experts with analytical insights' },
-    { id: 'Adam & Erik', name: 'Adam & Erik', description: 'Health and wellness advocates' }
+    { id: 'Vidhi-lily', name: 'Vidhi & Lily', description: 'Tech enthusiasts with complementary perspectives' },
+    { id: 'emads-marisaa', name: 'Emads & Marisaa', description: 'Creative storytellers with engaging dynamics' },
+    { id: 'clara-mark', name: 'Clara & Mark', description: 'Business experts with analytical insights' },
+    { id: 'adam-erik', name: 'Adam & Erik', description: 'Health and wellness advocates' }
   ];
   const videoAvatarPairs = [
-  { id: 'Amelia & Emanual', name: 'Amelia & Emanual', description: 'Expressive AI video hosts' },
-  { id: 'Brandon & Gala', name: 'Brandon & Gala', description: 'Dynamic duo for engaging video episodes' },
-  { id: 'Leos & Ida', name: 'Leos & Ida', description: 'Conversational and visually expressive' },
-  { id: 'Leszek & Noah', name: 'Leszek & Noah', description: 'Professional and charismatic AI video hosts' },
-  { id: 'Masha & Martina', name: 'Masha & Martina', description: 'Energetic and friendly presence on screen' }
+  { id: 'amelia-emanual', name: 'Amelia & Emanual', description: 'Expressive AI video hosts' },
+  { id: 'brandon-gala', name: 'Brandon & Gala', description: 'Dynamic duo for engaging video episodes' },
+  { id: 'leos-ida', name: 'Leos & Ida', description: 'Conversational and visually expressive' },
+  { id: 'leszek-noah', name: 'Leszek & Noah', description: 'Professional and charismatic AI video hosts' },
+  { id: 'masha-martina', name: 'Masha & Martina', description: 'Energetic and friendly presence on screen' }
 ];
   const durations = [
     { value: '5', label: '5 minutes' },

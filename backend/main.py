@@ -64,6 +64,7 @@ def poll_video_status(video_id,mainkey, interval=5, timeout=30000):
     }
     while time.time() - start_time < timeout:
         status_response = requests.get(status_url, headers=headers)
+        print(status_response.json())
         status_data = status_response.json()
         
         status = status_data.get("data", {}).get("status")
@@ -249,12 +250,12 @@ async def get_script(req: Topicrequest):
         try:
             print(f"Trying API key {idx + 1}/{len(api_keys)}...")
             headers["X-Api-Key"] = key
-            response =requests.post(url, headers=headers, data=json.dumps(payload))
+            response1 =requests.post(url, headers=headers, data=json.dumps(payload))
               # success
-            response.raise_for_status()
+            response1.raise_for_status()
 
             print("✅ Success!")
-            print("Response:", response.json())
+            print("Response:", response1.json())
             print("MAINKEY = ===",mainkey)
             mainkey = key
             break  # Exit loop on success
@@ -263,9 +264,9 @@ async def get_script(req: Topicrequest):
 
 
 
-    print("response : ===============",response)
-   # print("this is the exact response : ",response.json())
-    video_id = response.json()['data']['video_id']
+    print("response : ===============",response1)
+    print("this is the exact response : ",response1.json())
+    video_id = response1.json()['data']['video_id']
     print("this is the vedio id : ",video_id)
     if video_id:
         video_url = poll_video_status(video_id,mainkey)
@@ -282,7 +283,13 @@ async def get_script(req: Topicrequest):
     except json.JSONDecodeError as e:
         print("❌ Failed to parse LLM response as JSON:", e)
         return []
-
+    
+    if isinstance(parsed_content, list):
+        if all(isinstance(line, list) for line in parsed_content):
+            parsed_content = [item for group in parsed_content for item in group]
+    else:
+        print("❌ Unexpected response format.")
+        return []    
     print("======================parsed the contnen")
     character_map = {
     "Host": "1324",
@@ -305,6 +312,7 @@ async def get_script(req: Topicrequest):
     summery_promptt = summery_prompt()
 
     print("===============formatting script")
+    print("parsed_content=========================",parsed_content)
     script = format_dialogue_lines(parsed_content)
     print(str(script))
 
@@ -314,7 +322,7 @@ async def get_script(req: Topicrequest):
     print("response generated =========================")
 
 
-    #img_url = fetch_unsplash_image(topic)
+    #img_url = 'fetch_unsplash_image(topic)'
     
     
     
