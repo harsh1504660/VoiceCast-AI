@@ -140,22 +140,22 @@ async def get_script(req: Topicrequest):
         "Guest": {"avatar_id": "Emanuel_sitting_Sofa_side", "voice_id": "8a9fd0a131c94da08b761389e1e07cee"}
     }
 
-    if(hosts=='amelia-emanual'):
+    if(hosts=='Amelia & Emanual'):
         character_voice_map["Host"]["avatar_id"] = 'Amelia_sitting_business_training_side'
         character_voice_map["Host"]["voice_id"] = '4754e1ec667544b0bd18cdf4bec7d6a7'
         character_voice_map["Guest"]["avatar_id"] = 'Emanuel_sitting_Sofa_side'
         character_voice_map["Guest"]["voice_id"] = '8a9fd0a131c94da08b761389e1e07cee'
-    elif (hosts=='brandon-gala'):
+    elif (hosts=='Brandon & Gala'):
         character_voice_map["Host"]["avatar_id"] = 'Brandon_Office_Sitting_Side_public'
         character_voice_map["Host"]["voice_id"] = '897d6a9b2c844f56aa077238768fe10a'
         character_voice_map["Guest"]["avatar_id"] = 'Gala_sitting_businesssofa_side'
         character_voice_map["Guest"]["voice_id"] = '1704ea0565c04c5188d9b67062b31a1a'   
-    elif(hosts=='leos-ida'):
+    elif(hosts=='Leos & Ida'):
         character_voice_map["Host"]["avatar_id"] = 'Leos_sitting_sofa_side'
         character_voice_map["Host"]["voice_id"] = '8a021ecf219e4d638463f751235a7187'
         character_voice_map["Guest"]["avatar_id"] = 'Ida_sitting_sofa_side'
         character_voice_map["Guest"]["voice_id"] = '1a9bfb4ec9bc43d59ab64a4e66fe467c' 
-    elif(hosts=='leszek-noah'):
+    elif(hosts=='Leszek & Noah'):
         character_voice_map["Host"]["avatar_id"] = 'Leszek_sitting_sofa_front'
         character_voice_map["Host"]["voice_id"] = '8a4dfef7aacf4ad88c10ae9391bd3098'
         character_voice_map["Guest"]["avatar_id"] = 'Noah_sitting_sofa_front'
@@ -400,17 +400,18 @@ def audio_podcast(req: AudioPodcastRequest):
     hasvid = req.hasvid
     description = req.description
     first_host, second_host = [n.strip() for n in hosts.split('&')]
+    print(hosts)
     character_map = {
     "Host": "1324",
     "Guest": "4567"
     }
-    if(req.hosts=="vidhi-lily"):
+    if(req.hosts=="Vidhi & Lily"):
         character_map["Host"] = "Oq0cIHWGcnbOGozOQv0t"
         character_map["Guest"] = "t4U671CQHG58R11znrVj"
-    elif(req.hosts=="emads-marisaa"):
+    elif(req.hosts=="Emads & Marisaa"):
         character_map["Host"] = "jCxbkArMg3nfWZAmsdkB"
         character_map["Guest"] = "L0yTtpRXzdyzQlzALhgD"
-    elif(req.hosts=='clara-mark'):
+    elif(req.hosts=='Clara & Mark'):
         character_map["Host"] = "EIsgvJT3rwoPvRFG6c4n"
         character_map["Guest"] = "3jR9BuQAOPMWUjWpi0ll"
     else:
@@ -492,11 +493,8 @@ def audio_podcast(req: AudioPodcastRequest):
 
 
     print("url==================",newurl)
-    # filepath = download_file(url)
-    # audio_url = upload_to_catbox(filepath)
-    #newurl = 'https://files.catbox.moe/krsqsa.mp3'
     store_video_link(video_url=newurl,username=username,hosts=hosts,hasvid=hasvid,title=str(topic),topicCat=topicCat,summary=response.content,transcript=str(script),img_url=img_url)
-    return {"audio_url":newurl}
+    return {"audio_url":'newurl'}
 
 from sqlalchemy import select
 
@@ -520,5 +518,5 @@ def fetch_data(req: FecthInput):
 
    
 
-# if __name__ == "__main__":
-#     uvicorn.run(app ,host="0.0.0.0", port=10000)
+if __name__ == "__main__":
+    uvicorn.run(app ,host="0.0.0.0", port=10000)
